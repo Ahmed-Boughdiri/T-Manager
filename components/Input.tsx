@@ -1,11 +1,11 @@
 import React from "react";
 import { View, TextInput, StyleSheet } from "react-native";
 
-const Input: React.FC<{ name: string; Icon: any }> = ({ name, Icon }) => {
+const Input: React.FC<{ name: string; Icon: any, updateAction: any }> = ({ name, Icon, updateAction }) => {
   return (
     <View style={styles.inputContainer}>
       <Icon />
-      <TextInput placeholder={name} style={{ marginLeft: 15, fontSize: 17 }} />
+      <TextInput placeholder={name} style={{ marginLeft: 15, fontSize: 17 }} onChangeText={(val) => updateAction(val)} />
     </View>
   );
 };

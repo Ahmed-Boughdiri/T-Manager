@@ -44,7 +44,7 @@ const Habits: React.FC = () => {
           ))}
         </ScrollView>
       </View>
-      <Overlay isVisible={addHabit} overlayStyle={{ height: 250, width: 300 }}>
+      <Overlay isVisible={addHabit} overlayStyle={{ height: 370, width: 300 }}>
         <AddHabit closeAddHabit={closeAddHabit} />
       </Overlay>
     </View>
