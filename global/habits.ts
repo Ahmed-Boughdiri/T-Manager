@@ -31,9 +31,9 @@ const getHabits = async() =>{
     const car = {
       name: finalHabitsCar[0],
       goal: finalHabitsCar[1],
-      category: finalHabitsCar[2], 
+      category: finalHabitsCar[2],
       color: finalHabitsCar[3],
-      progress: +finalHabitsCar[4]
+      progress: (finalHabitsCar[4] === undefined) ? 0 : +finalHabitsCar[4]
     }
     habitsProps.push(car);
   }
@@ -69,7 +69,7 @@ const generateIconType = (name: string): string =>{
     case "HouseWork": return "Ionicons";
     case "Distroy Bad Attitude": return "Ionicons";
     case "Creativity": return "MaterialCommunityIcons";
-    case "Health": return "MaterialCommunityIcons"; 
+    case "Health": return "MaterialCommunityIcons";
     default: return ""
   }
 }
@@ -82,13 +82,12 @@ const generateColor = (color: string): string =>{
     case "Purple": return "#b8b6cb";
     case "Gray": return "#A69EAA";
     case "Black": return "#444";
-    default: return "";
+    default: return "#222222";
   }
 }
 
-export var habits: HabitProps[] = [];
-
-const getFinalHabits = async() =>{
+export const getFinalHabits = async() =>{
+  let habits: HabitProps[] = [];
   const habitsCar = await getHabits();
   for(const i in habitsCar){
     const car = habitsCar[i];
@@ -104,26 +103,30 @@ const getFinalHabits = async() =>{
     }
     habits.push(prop)
   }
-  //console.log(habits)
+  return habits;
 }
 
 getFinalHabits();
 
 export const addMyHabit = async(habit: string) =>{
   const nb = await AsyncStorage.getItem("nb");
-  const newNB: number = (nb === null) ? 1 : (+nb) + 1;
+  let newNB: number = (nb === null) ? 0 : (+nb);
+  newNB++;
   await AsyncStorage.setItem("nb",newNB + "");
   await AsyncStorage.setItem("habit" + newNB,habit);
 }
 
 const getData = async() =>{
-  const data = await AsyncStorage.getItem("habit1");
+  const data = await AsyncStorage.getItem("habit0");
   console.log(data);
 }
 
-getData()
+//getData()
 
-// AsyncStorage.removeItem("habit1")
+//AsyncStorage.removeItem("habit0");
+// AsyncStorage.removeItem("habit2");
+// AsyncStorage.removeItem("nb");
+//AsyncStorage.setItem("nb","0");
 
 
 

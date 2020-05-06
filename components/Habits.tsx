@@ -7,14 +7,24 @@ import {
 } from "react-native";
 import { Text, Avatar, Overlay } from "react-native-elements";
 import AddHabit from "./AddHabit";
-import { habits } from "../global/habits";
+import { getFinalHabits } from "../global/habits";
 import Habit from "./Habit";
+import { HabitProps } from "../global/habits";
 
 const { width: WIDTH } = Dimensions.get("window");
 
 const Habits: React.FC = () => {
+  const [habits,setHabits] = React.useState([]);
   const [addHabit, setAddHabit] = React.useState(false);
   const closeAddHabit = (): void => setAddHabit(false);
+  const handleHabits = async() =>{
+    const habitsHandler: any = await getFinalHabits();
+    setHabits(habitsHandler);
+    //console.log(habitsHandler);
+  }
+  React.useEffect(() =>{
+    handleHabits()
+  })
   return (
     <View style={styles.container}>
       <View style={styles.title}>
@@ -33,7 +43,7 @@ const Habits: React.FC = () => {
           showsHorizontalScrollIndicator={false}
           style={{ paddingLeft: 10 }}
         >
-          {habits.map((h) => (
+          {habits.map((h: HabitProps) => (
             <Habit
               name={h.name}
               icon={h.icon}

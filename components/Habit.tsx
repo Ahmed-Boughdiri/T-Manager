@@ -29,7 +29,7 @@ const Habit: React.FC<HabitProps> = ({ name, icon, progress, goal, color }) => {
       </Text>
       <View style={styles.progress}>
         <View
-          style={{ ...styles.indicator, width: (progress / 120) * 100 }}
+          style={{ ...styles.indicator, width: (progress == NaN) ? 0 : (progress / 120) * 100 }}
         ></View>
       </View>
       <Caption
